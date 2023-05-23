@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    PokeAPI Page
+{% endblock %}
+
+{% block content %}
+<form method="POST" class="px-3">
+    <div class="mb-3">
+      <label for="name" class="form-label">Enter a Pokemon Name: </label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Get Pokemon</button>
+</form>
+
+{% if poke_dict %}
+<div class="px-3">
+<div class="card" style="width: 18rem;">
+  <img src="{{poke_dict.sprite}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{poke_dict.name}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Ability: {{poke_dict.ability}}</li>
+    <li class="list-group-item">HP: {{poke_dict.hp}}</li>
+    <li class="list-group-item">Defense: {{poke_dict.defense}}</li>
+    <li class="list-group-item">Attack: {{poke_dict.attack}}</li>
+  </ul>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}
