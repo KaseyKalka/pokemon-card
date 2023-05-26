@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Login
+
 {% endblock %}
 
 {% block content %}
 <div class="container w-25" id="form-container">
     <form method="POST">
         {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.first_name.label }}
+            {{ form.first_name(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.last_name.label }}
+            {{ form.last_name(class="form-control") }}
+        </div>
         <div class="mb-3">
             {{ form.email.label }}
             {{ form.email(class="form-control") }}

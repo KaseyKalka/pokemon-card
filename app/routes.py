@@ -1,15 +1,28 @@
 from flask import request, render_template
 import requests
-from app.forms import LoginForm, Get_Pokemon_Form
+from app.forms import LoginForm, Get_Pokemon_Form, SignupForm
 from app import app
 
 @app.route("/")
-def greeting():
-    return "Here you can find data about a pokemon!"
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    pass
+    form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        return 'Successfully logged in!'
+    else:
+        return render_template('login.html', form=form)
+    
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignupForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        return 'Thanks for signing up!'
+    else:
+        return render_template('signup.html', form=form)
 
 @app.route("/pokeapi", methods = ['GET', 'POST'])
 def get_pokemon():
@@ -17,7 +30,7 @@ def get_pokemon():
     if request.method == 'POST' and form.validate_on_submit():
         #pokemon = form.get_pokemon.data.lower()
         print('posting')
-        name = form.get_pokemon.data
+        name = form.get_pokemon.data.lower()
         print(name)
         url = f'https://pokeapi.co/api/v2/pokemon/{name}'
         response = requests.get(url)
