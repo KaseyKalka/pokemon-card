@@ -16,6 +16,9 @@
             {{ form.password.label }}
             {{ form.password(class="form-control") }}
         </div>
+        {% if error %}
+            <p class="text-center text-danger">{{ error }}</p>
+        {% endif %}
         <div>
             {{ form.submit_btn(class="btn btn-secondary d-block mx-auto") }}
         </div>

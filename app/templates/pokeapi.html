@@ -7,16 +7,21 @@
 {% block content %}
 <form method="POST" class="px-3">
   {{ form.hidden_tag() }}
-  {{ form.get_pokemon }}
-  {{ form.submit_btn }}
+  <p>Enter the name of the pokemon you'd like to see and hit 'Search'</p>
+  <div>
+    {{ form.get_pokemon }}
+    <div id="search-btn">
+      {{ form.submit_btn }}
+    </div>
+  </div>
 </form>
 
 {% if poke_dict %}
-<div class="px-3">
+<div class="px-3 m-3">
 <div class="card" style="width: 18rem;">
   <img src="{{poke_dict.sprite}}" class="card-img-top" alt="...">
   <div class="card-body">
-    <h5 class="card-title">{{poke_dict.name}}</h5>
+    <h5 class="card-title">{{poke_dict.name.title()}}</h5>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Ability: {{poke_dict.ability}}</li>
