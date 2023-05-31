@@ -10,14 +10,12 @@
   <p>Enter the name of the pokemon you'd like to see and hit 'Search'</p>
   <div>
     {{ form.get_pokemon }}
-    <div id="search-btn">
-      {{ form.submit_btn }}
-    </div>
+    {{ form.submit_btn }}
   </div>
 </form>
 
 {% if poke_dict %}
-<div class="px-3 m-3">
+<div class="m-3">
 <div class="card" style="width: 18rem;">
   <img src="{{poke_dict.sprite}}" class="card-img-top" alt="...">
   <div class="card-body">
