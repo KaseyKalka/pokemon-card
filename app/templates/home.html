@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    Homepage of your pokedex
+    <div class="text-center"> Homepage of your pokedex </div>
+
+    {% if posts %}
+        {% for post in posts %}
+            <p>Add card here</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
