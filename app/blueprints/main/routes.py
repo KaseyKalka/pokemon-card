@@ -1,9 +1,11 @@
-from flask import request, render_template, flash
+from flask import request, render_template, flash, redirect, url_for
 import requests
 from app.blueprints.main.forms import Get_Pokemon_Form
 from . import main
 from flask_login import login_required
 from app.models import Pokemon
+from app import db
+
 
 @main.route("/")
 @main.route('/home')
@@ -38,3 +40,26 @@ def get_pokemon():
             return render_template('pokeapi.html', form=form)
     return render_template('pokeapi.html', form=form)
 
+# @main.route('/catch_pokemon', methods=['GET', 'POST'])
+# @login_required
+# def catch_pokemon():
+#     form = Get_Pokemon_Form()
+#     if request.method == 'POST' and form.validate_on_submit():
+
+#         pokemon_data = {
+#             'pokemon' = form.catch_btn.data
+#         }
+
+#         # create new instance of a pokemon
+#         new_pokemon = Pokemon()
+
+#         new_pokemon.from_dict(pokemon_data)
+
+#         # add new pokemon to db
+#         db.session.add(new_pokemon)
+#         db.session.commit()
+
+#         flash(f'You caught a {{poke_dict.name}}! {{poke_dict.name}} has been added to your team.', 'success')
+#         return redirect(url_for('main.home'))
+#     else:
+#         return render_template('pokeapi.html', form=form)
