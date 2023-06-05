@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-
 login_manager = LoginManager()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -24,8 +23,8 @@ def create_app():
     login_manager.login_message_category = 'warning'
 
     # importing blueprints
-    from app.blueprints.main import main
-    from app.blueprints.auth import auth
+    from .blueprints.main import main
+    from .blueprints.auth import auth
 
     # registering blueprints
     app.register_blueprint(main)
@@ -33,4 +32,4 @@ def create_app():
     
     return app
 
-#from app import routes, models
+from . import models

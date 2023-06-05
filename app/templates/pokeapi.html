@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    PokeAPI Page
+    Find a Pokemon
 {% endblock %}
 
 {% block content %}
@@ -15,21 +15,21 @@
 </form>
 
 {% if poke_dict %}
-<div class="m-3">
-  <div class="card" style="width: 18rem;">
-    <img src="{{poke_dict.sprite}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{poke_dict.name.title()}}</h5>
+  <div class="m-3">
+    <div class="card" style="width: 18rem;">
+      <img src="{{poke_dict.img_url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{poke_dict.pokemon_name.title()}}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Ability: {{poke_dict.ability}}</li>
+        <li class="list-group-item">HP: {{poke_dict.hp}}</li>
+        <li class="list-group-item">Defense: {{poke_dict.defense}}</li>
+        <li class="list-group-item">Attack: {{poke_dict.attack}}</li>
+      </ul>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Ability: {{poke_dict.ability}}</li>
-      <li class="list-group-item">HP: {{poke_dict.hp}}</li>
-      <li class="list-group-item">Defense: {{poke_dict.defense}}</li>
-      <li class="list-group-item">Attack: {{poke_dict.attack}}</li>
-    </ul>
-    {{ form.catch_btn(class="btn btn-primary d-block mx-auto") }}
   </div>
-</div>
-{% endif %}
+  <a href="{{ url_for('main.catch_pokemon', pokemon_name=poke_dict.pokemon_name)}}" class="btn btn-primary">Catch</a>
+  {% endif %}
 
 {% endblock %}

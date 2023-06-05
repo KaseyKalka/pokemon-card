@@ -9,7 +9,6 @@ caught_pokemon = db.Table(
     db.Column('pokemon_caught', db.String, db.ForeignKey('pokemon.pokemon_name'))
 )
 
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
@@ -37,21 +36,38 @@ class User(UserMixin, db.Model):
         self.password = self.hash_password(user_data['password'])
 
 class Pokemon(db.Model):
-    pokemon_name = db.Column(db.String, primary_key=True)
+    pokemon_name = db.Column(db.String, primary_key=True, unique=True)
+    img_url = db.Column(db.String, nullable=False)
     ability = db.Column(db.String, nullable=False)
     hp = db.Column(db.Integer, nullable=False)
     defense = db.Column(db.Integer, nullable=False)
     attack = db.Column(db.Integer, nullable=False)
-    # FK
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    is_caught = db.Column(db.Boolean, default=False)
+
+    def is_known(pokemon_name):
+        return Pokemon.query.filter_by(pokemon_name=pokemon_name).first()
 
     def from_dict(self, poke_data):
         self.pokemon_name = poke_data['pokemon_name']
+        self.img_url = poke_data['img_url']
         self.ability = poke_data['ability']
         self.hp = poke_data['hp']
         self.defense = poke_data['defense']
         self.attack = poke_data['attack']
-        self.user_id = poke_data['user_id']
+
+    def to_dict(self):
+        return {
+            'pokemon_name': self.pokemon_name,
+            'img_url': self.img_url,
+            'ability': self.ability,
+            'hp': self.hp,
+            'defense': self.defense,
+            'attack': self.attack
+        }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):

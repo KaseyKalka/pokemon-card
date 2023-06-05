@@ -5,25 +5,25 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-center"> Homepage of your pokedex </div>
+    <div class="text-center"> Your current team of Pokeomn! </div>
 
     {% if main %}
-        {% for pokemon in main %}
-        <div class="m-3">
-            <div class="card" style="width: 18rem;">
-              <img src="{{poke_dict.sprite}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">{{poke_dict.name.title()}}</h5>
+          {% for pokemon in main %}
+          <div class="m-3">
+              <div class="card" style="width: 18rem;">
+                <img src="{{pokemon.sprite}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{pokemon.name.title()}}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Ability: {{pokemon.ability}}</li>
+                  <li class="list-group-item">HP: {{pokemon.hp}}</li>
+                  <li class="list-group-item">Defense: {{pokemon.defense}}</li>
+                  <li class="list-group-item">Attack: {{pokemon.attack}}</li>
+                </ul>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Ability: {{poke_dict.ability}}</li>
-                <li class="list-group-item">HP: {{poke_dict.hp}}</li>
-                <li class="list-group-item">Defense: {{poke_dict.defense}}</li>
-                <li class="list-group-item">Attack: {{poke_dict.attack}}</li>
-              </ul>
-            </div>
-            <a href="#" class="btn btn-danger">Delete</a>
-        </div>
-        {% endfor %}
+              <a href="{{ url_for(main.release_pokemon, pokemon_caught=pokemon.pokemon_name) }}" class="btn btn-danger">Release</a>
+          </div>
+          {% endfor %}
     {% endif %}
 {% endblock %}
