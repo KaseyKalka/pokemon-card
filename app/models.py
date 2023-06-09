@@ -5,8 +5,8 @@ from werkzeug.security import generate_password_hash
 
 caught_pokemon = db.Table(
     'caught_pokemon',
-    db.Column('user_caught_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('pokemon_caught', db.String, db.ForeignKey('pokemon.pokemon_name'))
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('pokemon_name', db.String, db.ForeignKey('pokemon.pokemon_name'))
 )
 
 class User(UserMixin, db.Model):
@@ -16,11 +16,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
-    pokemon_caught = db.relationship('User',
+    pokemon_caught = db.relationship('Pokemon',
         secondary = caught_pokemon,
-        primaryjoin = (caught_pokemon.columns.user_caught_id == id),
-        secondaryjoin = (caught_pokemon.columns.pokemon_caught == id),
-        backref = db.backref('caught_pokemon', lazy='dynamic'),
+        backref = db.backref('caught_pokemon'),
         lazy='dynamic'
     )
 
